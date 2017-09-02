@@ -1,0 +1,48 @@
+digraph exp {
+node [fontsize=11]; AVBL; AVBR; DB1; DB2; DB3; DB4; DB5; DB6; DB7; 
+AVBL -> AVBR [minlen=2 arrowhead="tee"];
+AVBL -> DB2 [minlen=2 arrowhead="tee"];
+AVBL -> DB3 [minlen=2 arrowhead="tee"];
+AVBL -> DB4 [minlen=2 arrowhead="tee"];
+AVBL -> DB5 [minlen=2 arrowhead="tee"];
+AVBL -> DB6 [minlen=2 arrowhead="tee"];
+AVBL -> DB7 [minlen=2 arrowhead="tee"];
+AVBR -> AVBL [minlen=2 arrowhead="tee"];
+AVBR -> DB1 [minlen=2 arrowhead="tee"];
+AVBR -> DB2 [minlen=2 arrowhead="tee"];
+AVBR -> DB3 [minlen=2 arrowhead="tee"];
+AVBR -> DB4 [minlen=2 arrowhead="tee"];
+AVBR -> DB5 [minlen=2 arrowhead="tee"];
+AVBR -> DB6 [minlen=2 arrowhead="tee"];
+AVBR -> DB7 [minlen=2 arrowhead="tee"];
+DB1 -> AVBR [minlen=2 arrowhead="tee"];
+DB1 -> DB2 [minlen=2 arrowhead="tee"];
+DB2 -> AVBL [minlen=2 arrowhead="tee"];
+DB2 -> AVBR [minlen=2 arrowhead="tee"];
+DB2 -> DB1 [minlen=2 arrowhead="tee"];
+DB2 -> DB3 [minlen=2 arrowhead="tee"];
+DB3 -> AVBL [minlen=2 arrowhead="tee"];
+DB3 -> AVBR [minlen=2 arrowhead="tee"];
+DB3 -> DB2 [minlen=2 arrowhead="tee"];
+DB3 -> DB4 [minlen=2 arrowhead="tee"];
+DB4 -> AVBL [minlen=2 arrowhead="tee"];
+DB4 -> AVBR [minlen=2 arrowhead="tee"];
+DB4 -> DB3 [minlen=2 arrowhead="tee"];
+DB4 -> DB5 [minlen=2 arrowhead="tee"];
+DB5 -> AVBL [minlen=2 arrowhead="tee"];
+DB5 -> AVBR [minlen=2 arrowhead="tee"];
+DB5 -> DB4 [minlen=2 arrowhead="tee"];
+DB5 -> DB6 [minlen=2 arrowhead="tee"];
+DB6 -> AVBL [minlen=2 arrowhead="tee"];
+DB6 -> AVBR [minlen=2 arrowhead="tee"];
+DB6 -> DB5 [minlen=2 arrowhead="tee"];
+DB6 -> DB7 [minlen=2 arrowhead="tee"];
+DB7 -> AVBL [minlen=2 arrowhead="tee"];
+DB7 -> AVBR [minlen=2 arrowhead="tee"];
+DB7 -> DB6 [minlen=2 arrowhead="tee"];
+AVBL -> AVBR [minlen=2];
+AVBR -> AVBL [minlen=2];
+AVBR -> DB4 [minlen=2];
+splines=true;sep="+25,25";overlap=false
+fontsize=12;
+}
