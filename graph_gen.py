@@ -9,7 +9,7 @@ from subprocess import call
 
 
 def usage(script):
-    print 'USAGE: python %s directory graphviz_filename figure_filename' % (script)
+    print 'USAGE: python %s directory [r]' % (script)
     sys.exit(-1)
 
 
@@ -104,7 +104,7 @@ def execute_graph_generator(graphviz_file, fig_file):
 
 def main():
 
-    if len(sys.argv) == 5:
+    if len(sys.argv) >= 3:
         filenames = find_nml_files(sys.argv[1], recursive=True)
     else:
         filenames = find_nml_files(sys.argv[1])
@@ -120,14 +120,21 @@ def main():
         elec_conns = get_elec_conns(root)
         chem_conns = get_chem_conns(root)
 
-        write_graph_file(os.path.join(dirname, sys.argv[2]), cells, elec_conns, chem_conns)
+        base = os.path.basename(filename)
+        graphviz_file = os.path.splitext(base)[0]
+        graphviz_file += '.gv'
 
-        execute_graph_generator(os.path.join(dirname, sys.argv[2]), os.path.join(dirname, sys.argv[3]))
+        fig_file = os.path.splitext(base)[0]
+        fig_file += '.png'
+
+        write_graph_file(os.path.join(dirname, graphviz_file), cells, elec_conns, chem_conns)
+
+        execute_graph_generator(os.path.join(dirname, graphviz_file), os.path.join(dirname, fig_file))
     
 
 if __name__ == '__main__':
 
-    if len(sys.argv) < 4:
+    if len(sys.argv) < 2:
         usage(sys.argv[0])
 
     main()
