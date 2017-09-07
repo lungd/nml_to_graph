@@ -1,4 +1,6 @@
 digraph exp {
+graph [layout = dot];
+splines=true; sep="+25,25"; overlap=false; fontsize=12;
 node [fontsize=11]; AVBL; AVBR; DB1; DB2; DB3; DB4; DB5; DB6; DB7; 
 AVBL -> AVBR [style="dashed" minlen=2 arrowhead="none"];
 AVBL -> DB2 [style="dashed" minlen=2 arrowhead="none"];
@@ -20,9 +22,7 @@ DB3 -> DB4 [style="dashed" minlen=2 arrowhead="none"];
 DB4 -> DB5 [style="dashed" minlen=2 arrowhead="none"];
 DB5 -> DB6 [style="dashed" minlen=2 arrowhead="none"];
 DB6 -> DB7 [style="dashed" minlen=2 arrowhead="none"];
-AVBL -> AVBR [minlen=2];
-AVBR -> AVBL [minlen=2];
-AVBR -> DB4 [minlen=2];
-splines=true;sep="+25,25";overlap=false
-fontsize=12;
+AVBL -> AVBR [minlen=2 color="black"];
+AVBR -> AVBL [minlen=2 color="black"];
+AVBR -> DB4 [minlen=2 color="black"];
 }

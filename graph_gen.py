@@ -66,15 +66,21 @@ def get_chem_conns(root):
             if 'inh' in child.attrib['postComponent']:
                 chem_conns.append('%s -> %s [minlen=2 color=red arrowhead="tee"]' % (pre, post))
             else:
-                chem_conns.append('%s -> %s [minlen=2]' % (pre, post))
+                chem_conns.append('%s -> %s [minlen=2 color="black"]' % (pre, post))
     return chem_conns
 
 
-def write_graph_file(filename, cells, elec_conns, chem_conns):
+def write_graph_file(filename, cells, elec_conns, chem_conns, layout="neato"):
     with open(filename, 'w') as graph:
         graph.write('digraph exp {\n')
-        #graph.write('graph [layout = dot]\n;')
-        
+        graph.write('graph [layout = %s];\n' % layout)
+
+        graph.write('splines=true; ')
+        #graph.write('concentrate=false; ')
+        graph.write('sep="+25,25"; ')
+        graph.write('overlap=false; ')
+        graph.write('fontsize=12;\n')
+
         graph.write('node [fontsize=11]; ')
         for cell in cells:
             graph.write('%s; ' % cell)
@@ -86,10 +92,7 @@ def write_graph_file(filename, cells, elec_conns, chem_conns):
         for chem in chem_conns:
             graph.write('%s;\n' % chem)
 
-        graph.write('splines=true;')
-        graph.write('sep="+25,25";')
-        graph.write('overlap=false\n')
-        graph.write('fontsize=12;\n')
+        
         graph.write('}')
 
 
@@ -108,6 +111,8 @@ def find_nml_files(directory='.', recursive=False):
 def execute_graph_generator(graphviz_file, fig_file):
     with open(fig_file, 'w') as fig:
         call(['neato', '-Tpng', graphviz_file], stdout=fig)
+    #os.system('dot -Gsplines=none %s | neato -Gsplines=true -Tpng -o%s' % (graphviz_file, fig_file))
+        
 
 
 def main():
@@ -117,9 +122,8 @@ def main():
     else:
         filenames = find_nml_files(sys.argv[1])
 
-    print filenames
-
     for filename in filenames:
+        print "Create graph for %s" % filename
         dirname = os.path.dirname(filename)
         tree = ET.parse(filename)
         root = tree.getroot()
@@ -130,14 +134,18 @@ def main():
 
         base = os.path.basename(filename)
         graphviz_file = os.path.splitext(base)[0]
-        graphviz_file += '.gv'
+        graphviz_file1 = graphviz_file + '_dot.gv'
+        graphviz_file2 = graphviz_file + '_neato.gv'
 
         fig_file = os.path.splitext(base)[0]
-        fig_file += '.png'
+        fig_file1 = fig_file + '_dot.png'
+        fig_file2 = fig_file + '_neato.png'
 
-        write_graph_file(os.path.join(dirname, graphviz_file), cells, elec_conns, chem_conns)
+        write_graph_file(os.path.join(dirname, graphviz_file1), cells, elec_conns, chem_conns, layout='dot')
+        execute_graph_generator(os.path.join(dirname, graphviz_file1), os.path.join(dirname, fig_file1))
 
-        execute_graph_generator(os.path.join(dirname, graphviz_file), os.path.join(dirname, fig_file))
+        write_graph_file(os.path.join(dirname, graphviz_file2), cells, elec_conns, chem_conns, layout='neato')
+        execute_graph_generator(os.path.join(dirname, graphviz_file2), os.path.join(dirname, fig_file2))
     
 
 if __name__ == '__main__':

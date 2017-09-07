@@ -1,0 +1,28 @@
+digraph exp {
+graph [layout = neato];
+splines=true; sep="+25,25"; overlap=false; fontsize=12;
+node [fontsize=11]; AVBL; AVBR; DB1; DB2; DB3; DB4; DB5; DB6; DB7; 
+AVBL -> AVBR [style="dashed" minlen=2 arrowhead="none"];
+AVBL -> DB2 [style="dashed" minlen=2 arrowhead="none"];
+AVBL -> DB3 [style="dashed" minlen=2 arrowhead="none"];
+AVBL -> DB4 [style="dashed" minlen=2 arrowhead="none"];
+AVBL -> DB5 [style="dashed" minlen=2 arrowhead="none"];
+AVBL -> DB6 [style="dashed" minlen=2 arrowhead="none"];
+AVBL -> DB7 [style="dashed" minlen=2 arrowhead="none"];
+AVBR -> DB1 [style="dashed" minlen=2 arrowhead="none"];
+AVBR -> DB2 [style="dashed" minlen=2 arrowhead="none"];
+AVBR -> DB3 [style="dashed" minlen=2 arrowhead="none"];
+AVBR -> DB4 [style="dashed" minlen=2 arrowhead="none"];
+AVBR -> DB5 [style="dashed" minlen=2 arrowhead="none"];
+AVBR -> DB6 [style="dashed" minlen=2 arrowhead="none"];
+AVBR -> DB7 [style="dashed" minlen=2 arrowhead="none"];
+DB1 -> DB2 [style="dashed" minlen=2 arrowhead="none"];
+DB2 -> DB3 [style="dashed" minlen=2 arrowhead="none"];
+DB3 -> DB4 [style="dashed" minlen=2 arrowhead="none"];
+DB4 -> DB5 [style="dashed" minlen=2 arrowhead="none"];
+DB5 -> DB6 [style="dashed" minlen=2 arrowhead="none"];
+DB6 -> DB7 [style="dashed" minlen=2 arrowhead="none"];
+AVBL -> AVBR [minlen=2 color="black"];
+AVBR -> AVBL [minlen=2 color="black"];
+AVBR -> DB4 [minlen=2 color="black"];
+}
