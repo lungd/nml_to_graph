@@ -37,10 +37,17 @@ def get_elec_conns(root):
         pre = elec_conn.attrib['presynapticPopulation']
         post = elec_conn.attrib['postsynapticPopulation']
 
+        append = True
+        for conn in elec_conns:
+            if "%s -> %s" % (post, pre) in conn:
+                append = False
+        
+
         if is_muscle(pre) or is_muscle(post):
             continue
 
-        elec_conns.append('%s -> %s [minlen=2 arrowhead="tee"]' % (pre, post))
+        if append:
+            elec_conns.append('%s -> %s [style="dashed" minlen=2 arrowhead="none"]' % (pre, post))
     return elec_conns    
 
 
@@ -57,7 +64,7 @@ def get_chem_conns(root):
 
         for child in chem_conn:
             if 'inh' in child.attrib['postComponent']:
-                chem_conns.append('%s -> %s [minlen=2 color=red]' % (pre, post))
+                chem_conns.append('%s -> %s [minlen=2 color=red arrowhead="tee"]' % (pre, post))
             else:
                 chem_conns.append('%s -> %s [minlen=2]' % (pre, post))
     return chem_conns
@@ -66,6 +73,7 @@ def get_chem_conns(root):
 def write_graph_file(filename, cells, elec_conns, chem_conns):
     with open(filename, 'w') as graph:
         graph.write('digraph exp {\n')
+        #graph.write('graph [layout = dot]\n;')
         
         graph.write('node [fontsize=11]; ')
         for cell in cells:
